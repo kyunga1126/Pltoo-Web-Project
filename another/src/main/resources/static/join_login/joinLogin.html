@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./loginForm.css">
+    <script src="show_loginbox.js"></script>
+    <title>로그인 페이지</title>
+</head>
+<body>
+    <div class="login-box active">
+        <img src="../img/logo.png" alt="pltoo 로고" class="logo">
+        <h3>회원가입이 완료되었습니다!</h3>
+        <h3>로그인 해 볼까요?</h3>
+        <div class="login-buttons">
+            <button onclick="showFluLogin()">플투 로그인</button>
+            <button>카톡으로 로그인</button>
+        </div>
+        <div class="signup">
+            <a href="../member/join.html">아직 회원이 아니라면? 회원가입</a>
+        </div>
+    </div>
+
+    <div class="flu-login-box">
+        <img src="../img/logo.png" alt="pltoo 로고" class="logo">
+        <div class="login-buttons">
+            <input id="input1" type="text" placeholder="아이디 입력">
+            <input id="input2" type="password" placeholder="비밀번호 입력">
+            <button>로그인</button>
+        </div>
+        <div class="signup">
+            <a href="../member/join.html">아직 회원이 아니라면? 회원가입</a>
+        </div>
+    </div>
+</body>
+</html>

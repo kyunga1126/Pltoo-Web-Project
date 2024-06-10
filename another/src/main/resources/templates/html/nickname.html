@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <title>nickname</title>
+    <script th:src="@{/join_nickname/main.js}"></script>
+    <link rel="stylesheet" th:href="@{/join_nickname/nickname.css}">
+</head>
+<body>
+<!-- action속성: form에 작성한 데이터를 어디로 보낼지 지정 -->
+<form action="/html/nickname" method="post">
+    <input type="hidden" name="memberEmail" th:value="${memberEmail}" />
+    <!-- wrapper -->
+    <div id="wrapper">
+        <!-- content-->
+        <div id="content">
+            <div class="main-container">
+                <!-- header -->
+                <div id="header">
+                    <img src="../img/logo.png" id="logo">
+                </div>
+                <div class="form-container">
+                    <span class="write">같이 놀고 싶은데... 이름이 뭐야?</span>
+                    <div class="form-line">
+                        <div>
+                            <span class="box int_pass">
+                                <input type="text" name="nickname" id="pswd1" class="int" maxlength="8" required>
+                                <span id="alertTxt">사용불가</span>
+                            </span>
+                            <span class="error_next_box"></span>
+                        </div>
+                        <!-- JOIN BTN -->
+                        <div class="btn_area">
+                            <button type="submit" id="btnJoin" value="확인">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

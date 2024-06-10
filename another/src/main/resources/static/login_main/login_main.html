@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>사용자 정의 헤더</title>
+    <script src="dropdown.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="header">
+    <a href="../login_main/index.html">
+        <img src="../img/logo.png" alt="pltoo 로고" class="logo">
+    </a>
+    <nav>
+        <ul>
+            <li class="dropdown">
+                <a href="#qa">게임</a>
+                <ul class="dropdown-content">
+                    <li><a href="#qa1">친구목록</a></li>
+                    <li><a href="#qa2">채팅</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#booking">게시판</a>
+                <ul class="dropdown-content">
+                    <li><a href="#booking1">자유게시판</a></li>
+                    <li><a href="#booking2">2</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#booking">고객센터</a>
+                <ul class="dropdown-content">
+                    <li><a href="#booking1">문의사항</a></li>
+                    <li><a href="#booking2">자주묻는 질문</a></li>
+                    <li><a href="#booking3">신고</a></li>
+                    <li><a href="#booking3">챗봇</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div class="search">
+        <input type="text" id="searchInput"  class="search-input" placeholder="궁금한 내용을 검색해보세요" style="display: none;">
+        <button class="search-button" onclick="toggleSearch()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+    <div class="globe-icon" onclick="toggleDropdown()">
+        <i class="fa-solid fa-globe"></i>
+        <ul class="dropdown-content" id="dropdownMenu" style="display: none;">
+            <li><a href="#option1">Option 1</a></li>
+            <li><a href="#option2">Option 2</a></li>
+            <li><a href="#option3">Option 3</a></li>
+        </ul>
+    </div>
+    <div class="auth">
+        <form action="../main/index.html" id="profileForms">
+            <img id="headerProfileImage" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="프로필 이미지" class="header-profile-image">
+        </form>
+    </div>
+</div>
+<div class="main-img">
+    <a href="랭킹 링크">
+        <div class="image-container01">
+            <video src="../img/benner.mp4" muted autoplay playsinline loop alt="OP.GG 배너 이미지" class="rounded-img centered-img">
+        </div>
+    </a>
+</div>
+<div>
+    <h2>게임별 친구 추천</h2>
+    <section class="container">
+        <a href="#" class="game-card" onclick="event.preventDefault();">
+            <div class="card-bg"></div>
+            <div class="image-container">
+                <img src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/ef4d0d5db25f6da57f640a967c697d64b31384bf-1920x1080.jpg?auto=format&fit=fill&q=80&w=1200" alt="리그오브레전드" class="game-image">
+            </div>
+            <div class="card-title">
+                리그오브레전드
+            </div>
+        </a>
+        <a href="#" class="game-card" onclick="event.preventDefault();">
+            <div class="card-bg"></div>
+            <div class="image-container">
+                <img src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/5205cb3122ea2cbcfa6d0a9bd75db4e9de08441f-1920x1080.jpg?auto=format&fit=fill&q=80&w=493" alt="전략적 팀 전투" class="game-image">
+            </div>
+            <div class="card-title">
+                전략적 팀 전투
+            </div>
+        </a>
+        <a href="#" class="game-card" onclick="event.preventDefault();">
+            <div class="card-bg"></div>
+            <div class="image-container">
+                <img src="https://mblogthumb-phinf.pstatic.net/MjAxOTAyMDhfMTM2/MDAxNTQ5NjA3MzE2Nzc3.-bcJZGJ8B0hq-mRsake63lM712617k_Oiw-Dgj1_k8Eg.tVj5aylywP3OA8noQDTgcyYjFO64yDR_cYG1lWQfQ0sg.JPEG.limsm5/pubg_soldier_4k-1920x1080.jpg?type=w800" alt="배틀그라운드" class="game-image">
+            </div>
+            <div class="card-title">
+                배틀그라운드
+            </div>
+        </a>
+        <a href="#" class="game-card" onclick="event.preventDefault();">
+            <div class="card-bg"></div>
+            <div class="image-container">
+                <img src="https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1ad34e44-a76e-4810-99b6-a826453b8bad%2FVALORANT_JETT_Duotoned.jpg&blockId=94c59bc3-7d5f-4eda-81db-3723b64eebd5&width=2400" alt="발로란트" class="game-image">
+            </div>
+            <div class="card-title">
+                발로란트
+            </div>
+        </a>
+        <a href="#" class="game-card" onclick="event.preventDefault();">
+            <div class="card-bg"></div>
+            <div class="image-container">
+                <img src="https://file.nexon.com/NxFile/Download/FileDownloader.aspx?oidFile=5269303974539822973" alt="FC 온라인" class="game-image">
+            </div>
+            <div class="card-title">
+                FC 온라인
+            </div>
+        </a>
+    </section>
+</div>
+<h2>인기별 친구 추천</h2>
+<div class="card-container">
+    <a href="링크" class="user-card" target="_blank">
+        <div class="profile-container">
+            <div class="image-container02">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-name">닉네임</div>
+        </div>
+    </a>
+    <a href="링크" class="user-card" target="_blank">
+        <div class="profile-container">
+            <div class="image-container02">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-name">닉네임</div>
+        </div>
+    </a>
+    <a href="링크" class="user-card" target="_blank">
+        <div class="profile-container">
+            <div class="image-container02">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-name">닉네임</div>
+        </div>
+    </a>
+    <a href="링크" class="user-card" target="_blank">
+        <div class="profile-container">
+            <div class="image-container02">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-name">닉네임</div>
+        </div>
+    </a>
+    <a href="링크" class="user-card" target="_blank">
+        <div class="profile-container">
+            <div class="image-container02">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-name">닉네임</div>
+        </div>
+    </a>
+</div>
+<div>
+    <h2>자주 활동하는 친구 추천</h2>
+    <div class="card-container">
+        <a href="링크" class="user-card" target="_blank">
+            <div class="profile-container">
+                <div class="image-container02">
+                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-name">닉네임</div>
+            </div>
+        </a>
+        <a href="링크" class="user-card" target="_blank">
+            <div class="profile-container">
+                <div class="image-container02">
+                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-name">닉네임</div>
+            </div>
+        </a>
+        <a href="링크" class="user-card" target="_blank">
+            <div class="profile-container">
+                <div class="image-container02">
+                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-name">닉네임</div>
+            </div>
+        </a>
+        <a href="링크" class="user-card" target="_blank">
+            <div class="profile-container">
+                <div class="image-container02">
+                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-name">닉네임</div>
+            </div>
+        </a>
+        <a href="링크" class="user-card" target="_blank">
+            <div class="profile-container">
+                <div class="image-container02">
+                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" class="user-image">
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-name">닉네임</div>
+            </div>
+        </a>
+    </div>
+    <div class="foot-container">
+        <footer>
+            <ul>
+                <li><a href="#guideline">가이드라인</a></li>
+                <li><a href="#terms">이용약관</a></li>
+                <li><a href="#privacy">개인정보 처리방침</a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+</html>

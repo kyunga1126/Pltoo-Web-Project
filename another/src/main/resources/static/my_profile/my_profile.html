@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>마이 프로필</title>
+    <script src="drop.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <a href="../login_main/login_main.html">
+            <img src="../img/logo.png" alt="pltoo 로고" class="logo">
+        </a>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#qa">게임</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#qa1">친구목록</a></li>
+                        <li><a href="#qa2">채팅</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#booking">게시판</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#booking1">자유게시판</a></li>
+                        <li><a href="#booking2">2</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#booking">고객센터</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#booking1">문의사항</a></li>
+                        <li><a href="#booking2">자주묻는 질문</a></li>
+                        <li><a href="#booking3">신고</a></li>
+                        <li><a href="#booking3">챗봇</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="search">
+            <input type="text" id="searchInput"  class="search-input" placeholder="궁금한 내용을 검색해보세요" style="display: none;">
+            <button class="search-button" onclick="toggleSearch()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+        <div class="globe-icon" onclick="toggleDropdown()">
+            <i class="fa-solid fa-globe"></i>
+            <ul class="dropdown-content" id="dropdownMenu" style="display: none;">
+                <li><a href="#option1">Option 1</a></li>
+                <li><a href="#option2">Option 2</a></li>
+                <li><a href="#option3">Option 3</a></li>
+            </ul>
+        </div>
+        <div class="auth">
+            <form action="../main/index.html" id="profileForm">
+                <img id="headerProfileImage" class="header-profile-image" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="프로필 이미지" class="header-profile-image">
+            </form>
+        </div>
+    </div>
+    <div class="main">
+        <div class="sidebar">
+            <div class="Profile">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="사용자 이미지" id="profile_img">
+                <div id="original_nickname"></div>
+                <button class="discode" onclick="viewDiscordProfile()">프로필 편집</button>
+                <button class="discode" onclick="viewDiscordProfile()">디스코드 프로필 로그인</button>
+            </div>
+            	<h3>하는 게임 리스트</h3>
+            	<div class="game_list"></div>
+        </div>
+        <div class="main-content">
+            <div id="wrapper">
+                <!-- 전화번호 변경 섹션 -->
+                <div id="content" style="position: relative;">
+                    <h2>전화번호 변경</h2>
+                    <span class="box int_phone">
+                        <input type="text" name="myPhone" id="phone" class="int" maxlength="15" placeholder="변경할 전화번호를 입력해주세요">
+                        <div id="phoneAlertTxt" style="display:none; color: red; position: absolute; z-index: 100;"></div>
+                    </span>
+                    <span class="error_next_box">사용중인 전화번호 입니다.</span>
+                    <form id="phoneForm" style="text-align: right;">
+                        <button type="submit">저장</button>
+                    </form>
+                </div>
+
+                <!-- 닉네임 변경 섹션 -->
+                <div id="content" style="position: relative;">
+                    <h2>닉네임 변경</h2>
+                    <span class="box int_email">
+                        <input type="text" name="myNickname" id="nickname" class="int" maxlength="8" placeholder="변경할 닉네임을 입력해주세요">
+                        <div id="alertTxt" style="display:none; color: red; position: absolute; z-index: 100;"></div>
+                    </span>
+                    <span class="error_next_box">사용중인 닉네임 입니다.</span>
+                    <form id="nicknameForm">
+                        <button type="submit">저장</button>
+                    </form>
+                </div>
+        
+                <!-- 자기소개 섹션 -->
+                <div id="content01">
+                    <h2>자기소개</h2>
+                    <span class="box int_profile">
+                        <textarea id="profile" name="myProfile" class="int" placeholder="자기소개를 입력해주세요"></textarea>
+                    </span>
+                    <button onclick="saveProfile()">저장</button>
+                </div>
+        
+                <!-- 리그오브레전드 티어 등록 섹션 -->
+                <div id="content">
+                    <h2>티어 등록(리그오브레전드)</h2>
+                    <span class="box int_game_tier">
+                        <input type="text" id="lol_tier" name="myLoLTier" class="int" placeholder="티어를 입력해주세요">
+                    </span>
+                    <button onclick="registerTier()">등록</button>
+                </div>
+        
+                <!-- 등록한 티어 표시 섹션 -->
+                <div id="content01">
+                    <h2>등록한 티어</h2>
+                    <div class="box int_tier_display" id="tierDisplay">
+                        <!-- 서버에서 등록한 티어 이미지를 불러와서 표시할 영역 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="withdrawSection" style="text-align: center; margin-top: 20px;">
+        <button type="submit">탈퇴하기</button>
+    </div>
+    <div class="foot-container">
+        <footer>
+            <ul>
+                <li><a href="#guideline">가이드라인</a></li>
+                <li><a href="#terms">이용약관</a></li>
+                <li><a href="#privacy">개인정보 처리방침</a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+</html>

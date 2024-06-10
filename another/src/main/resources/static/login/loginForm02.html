@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" th:href="@{/login/loginForm02.css}">
+</head>
+<body>
+    <form action="/member/login" method="post">
+        <div class="flu-login-box">
+            <img src="../img/logo.png" alt="pltoo 로고" class="logo">
+            <div class="login-buttons">
+                <input id="input1" type="text" placeholder="아이디 입력">
+                <input id="input2" type="password" placeholder="비밀번호 입력">
+                <button>로그인</button>
+            </div>
+            <div class="signup">
+                <a href="join.html">아직 회원이 아니라면? 회원가입</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,149 @@
+
+body, html {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh; /* Viewport height를 100% 채우기 */
+}
+
+#wrapper {
+    flex: 1;
+}
+
+#withdrawSection {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px; /* 여백 추가 */
+}
+
+.logo {
+    margin-top: 40px;
+    display: block;
+    height: 200px;
+}
+
+h2{
+    font-size: 30px;
+    color: rgb(34, 34, 34);
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+    /* 게임 추천 친구 페이지 */
+    /* 부모 컨테이너를 가운데 정렬 */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap; /* 카드들을 여러 줄로 배치 */
+        gap: 20px; /* 카드 사이의 간격을 설정 */
+        display: grid;
+        grid-template-columns: repeat(5, 2fr); /* 5개의 열 생성 */
+        gap: 60px; /* 행과 열 사이의 간격 동일하게 설정 */
+        margin-bottom: 80px;
+    }
+
+    /* 공통 카드 스타일 */
+    .card, .game-card, .skill-card {
+        position: relative;
+        display: inline-block;
+        width: 206px;
+        height: 288px;
+        border-radius: 16px;
+        overflow: hidden;
+        text-decoration: none;
+        color: #242633;
+        transition: all 0.3s ease;
+    }
+
+    /* 배경 스타일 */
+    .card-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0; /* 카드의 높이에 맞춤 */
+        background-color: white;
+        transition: background-color 0.3s ease;
+        z-index: 1;
+    }
+
+    .card:hover .card-bg, .game-card:hover .card-bg, .skill-card:hover .card-bg {
+        background-color: #b3fcf8;
+    }
+
+    /* 이미지 컨테이너 */
+    .image-container{
+        position: absolute;
+        top: 0;
+        left: 12px;
+        right: 12px;
+        height: 230px;
+        border-radius: 12px;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    /* 이미지 스타일 */
+    .skill-image, .game-image, .card-image, .image-wrapper {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-image, .game-card:hover .game-image, .skill-card:hover .skill-image {
+        transform: scale(1.10);
+    }
+
+    /* 타이틀 스타일 */
+    .card-title {
+        position: absolute;
+        bottom: 12px; /* Adjust bottom position for uniformity */
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 500;
+        z-index: 3;
+        transition: color 0.3s, font-weight 0.3s;
+        color: #242633;
+    }
+
+    .card:hover .card-title, .game-card:hover .card-title, .skill-card:hover .card-title {
+        color: black;
+        font-weight: bold;
+    }
+
+    /* 버튼 스타일 */
+.btn_area {
+    margin-bottom: 150px; /* 입력 필드와 버튼 사이의 간격 */
+    display: flex;
+    justify-content: center; /* 가로로 가운데 정렬 */
+}
+
+#btnJoin {
+    padding: 15px 55px;
+    color: rgb(61, 61, 61);
+    background-color: #b3fcf8;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#btnJoin:hover {
+    background-color: #40f2ff; /* 호버 시 색상 변경 */
+}
+
