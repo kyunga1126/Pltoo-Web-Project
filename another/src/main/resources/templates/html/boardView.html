@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board List</title>
+        <scrip th:src="@{/boardView/boardView.js}"></scrip>
+    <link rel="stylesheet" th:href="@{/boardView/boardView.css}">
+</head>
+<body>
+<!-- 상단 -->
+<div class="header">
+    <a href="index.html">
+        <img src="/img/logo.png" alt="pltoo 로고" class="logo">
+      
+  </a>
+  <nav>
+      <ul>
+          <li class="dropdown">
+              <a href="#qa">게임</a>
+              <ul class="dropdown-content">
+                  <li><a href="#qa1">친구목록</a></li>
+                  <li><a href="#qa2">채팅</a></li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a href="#booking">게시판</a>
+              <ul class="dropdown-content">
+                  <li><a href="#booking1">자유게시판</a></li>
+                  <li><a href="#booking2">2</a></li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a href="#booking">고객센터</a>
+              <ul class="dropdown-content">
+                  <li><a href="#booking1">문의사항</a></li>
+                  <li><a href="#booking2">자주묻는 질문</a></li>
+                  <li><a href="#booking3">신고</a></li>
+                  <li><a href="#booking3">챗봇</a></li>
+              </ul>
+          </li>
+      </ul>
+  </nav>
+  <div class="search">
+      <input type="text" id="searchInput" placeholder="궁금한 내용을 검색해보세요" style="display: none;">
+      <button class="search-button" onclick="toggleSearch()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+  </div>
+  <div class="globe-icon">
+      <i class="fa-solid fa-globe"></i>
+  </div>
+  <div class="auth">
+      <a href="./login/loginForm.html">로그인</a>
+      <a href="signup.html">회원가입</a>
+  </div>
+</div>
+  
+
+  <!-- 중앙부 -->
+<div class="body">
+    <h1 th:text="${board.boardTitle}" class="boardtitle">제목입니다.</h1>
+    <div class="board-wrapper">
+        <div class="boardtitle_information">
+            👤<span th:text="${board.nickname}">닉네임</span>
+            🕘<span th:text="${#temporals.format(board.createdAt, 'MM.dd')}">작성일</span>
+            👀<span th:text="${board.viewCount}">조회수</span>
+            ❤️<span th:text="${board.likes}">좋아요</span>
+        </div>
+        <div class="menu-wrapper">
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-btn">⋮</label>
+            <div class="menu-content">
+                <ul>
+                    <li><a th:href="@{/board/modify/{boardNum}(boardNum=${board.boardNum})}">수정</a></li>
+                    <li><a th:href="@{/board/delete/{boardNum}(boardNum=${board.boardNum})}">삭제</a></li>
+                    <li><a href="#">신고</a></li>
+                    <li><a href="#">차단</a></li>
+                </ul>
+            </div>
+        </div><div style="clear:both;"></div>
+    </div>
+    <hr>
+
+    <div class="boardcontent">
+        <p th:text="${board.boardContent}">내용이 들어갈 부분입니다.</p>
+    </div>
+
+<!--    <a th:href="@{${board.filepath}}">다운받기</a>-->
+
+
+    <div class="post-buttons">
+        <button id="likeButton">👍 좋아요</button>
+        <button id="dislikeButton">👎 싫어요</button>
+    </div>
+
+    <div class="post-navigation">
+        <form th:action="@{/board/list}" method="get" style='display:inline'>
+        <button id="prevButton">이전 글</button>
+        </form>
+
+        <form th:action="@{/board/list}" method="get" style='display:inline'>
+            <button type="submit">목록</button>
+        </form>
+
+        <form th:action="@{/board/list}" method="get" style='display:inline'>
+            <button id="nextButton">다음 글</button>
+        </form>
+    </div>
+
+    <div class="comments-section">
+        <h2>댓글</h2>
+        <div id="comments"></div>
+        <textarea id="commentInput" placeholder="댓글을 입력하세요"></textarea>
+        <button id="commentButton">댓글쓰기</button>
+    </div>
+</div>
+
+
+  <!-- 하단 -->
+  <div class="foot_container">
+    <footer>
+        <ul>
+            <li><a href="#guideline">가이드라인</a></li>
+            <li><a href="#terms">이용약관</a></li>
+            <li><a href="#privacy">개인정보 처리방침</a></li>
+        </ul>
+    </footer>
+</div>
+</body>
+</html>

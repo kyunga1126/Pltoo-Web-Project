@@ -20,4 +20,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     @Query("SELECT m.memberNum FROM MemberEntity m WHERE m.memberEmail = :email")
     Long findIdByEmail(@Param("email") String email);
 
+    // 기존: @Query("SELECT m FROM MemberEntity m WHERE m.email = :email")
+    // 변경 후: memberEmail 필드를 기준으로 MemberEntity를 찾는 메소드
+    @Query("SELECT m FROM MemberEntity m WHERE m.memberEmail = :memberEmail")
+    Optional<MemberEntity> findByEmail(@Param("memberEmail") String memberEmail);
 }

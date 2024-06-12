@@ -1,114 +1,105 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const userId = getUserIdFromURL();
-    showUserProfile(userId);
+    const addFriendButton = document.getElementById('addFriendButton');
+    const friendId = addFriendButton.getAttribute('data-friend-id'); // 프로필의 멤버 ID
+    const userId = /*[[${#request.remoteUser}]]*/ 0; // 현재 로그인한 사용자의 ID
 
-    // "친구 할래?" 버튼 클릭 시 친구 추가
-    document.querySelector('.btnText2').addEventListener('click', addFriend);
-
-    function addFriend() {
-        getCurrentUserId()
-            .then(userId => {
-                const friendId = getUserIdFromURL(); // URL에서 친구 ID를 가져옴
-
-                // API를 호출하여 친구 추가 요청
-                return fetch(`http://localhost:8080/api/friends/add?userId=${userId}&friendId=${friendId}`, {
-                    method: 'POST',
-                });
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("친구 추가 완료!");
-                    return getCurrentUserId();
+    addFriendButton.addEventListener('click', function() {
+        fetch(`/api/friends/add?userId=${userId}&friendId=${friendId}`, {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('친구 추가 성공!'); // 팝업창
                 } else {
-                    throw new Error('친구 추가 실패');
+                    alert('친구 추가 실패: ' + data.message);
                 }
             })
-            .then(userId => loadUserFriends(userId)) // 친구 목록 갱신
-            .then(userId => loadUserFriends(userId)) // 친구 목록 갱신
             .catch(error => {
-                console.error('Error adding friend:', error);
-                alert("친구 추가에 실패했습니다.");
+                console.error('Error:', error);
+                alert('친구 추가 중 오류가 발생했습니다.');
+            });
+    });
+    // 친구 목록. 사용자id를 매개변수로 받아서 해당 사용자의 친구목록 반환.
+    function loadFriendList(userId) {
+        fetch(`/api/friends/list?userId=${userId}`)
+            .then(response => response.json())
+            .then(friends => {
+                const friendList = document.getElementById('friendList');
+                friendList.innerHTML = '';
+                friends.forEach(friend => {
+                    const li = document.createElement('li');
+                    li.textContent = friend.nickname;
+                    friendList.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading friends:', error);
             });
     }
 });
-
-function getCurrentUserId() {
-    // 서버에서 세션을 통해 현재 사용자 ID를 가져오는 방법
-    return fetch('http://localhost:8080/api/users/current')
+// 현재 사용자의 이메일 가져오기.
+function getCurrentMemberEmail() {
+    // 서버에서 세션을 통해 현재 사용자 이메일을 가져오는 방법
+    return fetch('http://localhost:8080/api/members/current')
         .then(response => {
             if (!response.ok) {
-                throw new Error('Failed to get current user ID');
+                throw new Error('Failed to get current member email');
             }
             return response.json();
         })
-        .then(data => data)
+        .then(data => data.memberEmail)
         .catch(error => {
             console.error('Error:', error);
             return null;
         });
 }
 
-function getUserIdFromURL() {
+//URL에서 멤버 이메일을 가져오는 함수
+function getMemberEmailFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('userId');
+    return urlParams.get('memberEmail');
 }
 
-function showUserProfile(userId) {
+// 멤버 프로필
+function showMemberProfile(memberEmail) {
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', `http://localhost:8080/api/users/${userId}`, true);
+    xhr.open('GET', `http://localhost:8080/api/members/${memberEmail}`, true);
 
     xhr.onload = function() {
-        if (xhr.status === 200) {
             const data = JSON.parse(xhr.responseText);
 
             document.getElementById('profile_img').src = data.profileImage;
             document.getElementById('nickname').textContent = data.nickname;
             document.getElementById('age').textContent = data.age;
-            document.querySelector('.profile').textContent = data.profile;
+            document.getElementById('profile_description').textContent = data.profile;
 
-            loadUserGames(userId);
-            loadUserFriends(userId);
-        } else {
-            console.error('Request failed. Status:', xhr.status);
-        }
+            loadMemberGames(memberEmail);
+            loadMemberFriends(memberEmail);
     };
 
     xhr.send();
 }
 
-function loadUserGames(userId) {
+// 하는 게임 목록 가져오기
+function loadMemberGames(memberEmail) {
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', `http://localhost:8080/api/users/${userId}/games`, true);
+    xhr.open('GET', `http://localhost:8080/api/members/${memberEmail}/games`, true);
 
     xhr.onload = function() {
-        if (xhr.status === 200) {
             const games = JSON.parse(xhr.responseText);
-            const gamePage = document.querySelector('.gamePage');
-            gamePage.innerHTML = games.map(game => `<img src="${game.imageUrl}" alt="${game.gameName}">`).join('');
-        } else {
-            console.error('Request failed. Status:', xhr.status);
-        }
+            const gameListDiv = document.getElementById('gameList');
+            gameListDiv.innerHTML = '';
+            games.forEach(game => {
+                const img = document.createElement('img');
+                img.src = game.imageUrl;
+                img.alt = game.gameName;
+                gameListDiv.appendChild(img);
+            })
     };
 
     xhr.send();
 }
 
-function loadUserFriends(userId) {
-    const xhr = new XMLHttpRequest();
-
-    xhr.open('GET', `http://localhost:8080/api/users/${userId}/friends`, true);
-
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            const friends = JSON.parse(xhr.responseText);
-            const friendList = document.querySelector('.friend_list');
-            friendList.innerHTML = friends.map(friend => `<div>${friend.friend.nickname}</div>`).join('');
-        } else {
-            console.error('Request failed. Status:', xhr.status);
-        }
-    };
-
-    xhr.send();
-}

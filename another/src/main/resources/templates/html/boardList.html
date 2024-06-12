@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Board List</title>
+<!--    <scrip th:src="@{/boardList/boardList.js}"></scrip>-->
+    <link rel="stylesheet" th:href="@{/boardList/boardList.css}">
+</head>
+<body>
+<!-- 상단 -->
+<div class="header">
+  <a href="index.html">
+      <img src="/img/logo.png" alt="pltoo 로고" class="logo">
+      
+  </a>
+  <nav>
+      <ul>
+          <li class="dropdown">
+              <a href="#qa">게임</a>
+              <ul class="dropdown-content">
+                  <li><a href="#qa1">친구목록</a></li>
+                  <li><a href="#qa2">채팅</a></li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a href="#booking">게시판</a>
+              <ul class="dropdown-content">
+                  <li><a href="#booking1">자유게시판</a></li>
+                  <li><a href="#booking2">2</a></li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a href="#booking">고객센터</a>
+              <ul class="dropdown-content">
+                  <li><a href="#booking1">문의사항</a></li>
+                  <li><a href="#booking2">자주묻는 질문</a></li>
+                  <li><a href="#booking3">신고</a></li>
+                  <li><a href="#booking3">챗봇</a></li>
+              </ul>
+          </li>
+      </ul>
+  </nav>
+  <div class="search">
+      <input type="text" id="searchInput" placeholder="궁금한 내용을 검색해보세요" style="display: none;">
+      <button class="search-button" onclick="toggleSearch()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+  </div>
+  <div class="globe-icon">
+      <i class="fa-solid fa-globe"></i>
+  </div>
+  <div class="auth">
+      <a href="./login/loginForm.html">로그인</a>
+      <a href="signup.html">회원가입</a>
+  </div>
+</div>
+
+
+
+<!-- 중앙부 -->
+<!--게시판목록에서 표시되어야 하는것은 제목, 닉네임, -->
+<div class="boardlist">
+    <section class="latest-section">
+        <ul >
+            <li th:each="board : ${list}" class="boardlistcontent">
+                <a th:href="@{/board/view(boardNum=${board.boardNum})}">
+                    <div class="content">
+                        <h3 th:text="${board.boardTitle}"></h3>
+                        <p>
+                            👤<span th:text="${board.nickname}"></span>
+                            🕘<span th:text="${#temporals.format(board.createdAt, 'MM.dd')}"></span>
+                            👁‍🗨<span th:text="${board.viewCount}"></span>
+                            ❤<span th:text="${board.likes}"></span>
+                        </p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <!--      게시글 페이지 이동-->
+    <div class="pagination">
+        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+            <strong th:if="${page == nowPage}"  th:text="${page}" style="color: red"></strong>
+        </th:block>
+    </div>
+
+    <!--  게시글 검색 및 글쓰기 버튼  -->
+    <div class="button-container">
+        <form th:action="@{/board/list}" method="get">
+            <input type="text" name="searchKeyword">
+            <button type="submit">검색</button>
+        </form>
+        <button onclick="location.href='/board/write'" class="btn btn-primary">글쓰기</button>
+    </div>
+</div>
+</div>
+
+
+
+  <!-- 하단 -->
+  <div class="foot_container">
+    <footer>
+        <ul>
+            <li><a href="#guideline">가이드라인</a></li>
+            <li><a href="#terms">이용약관</a></li>
+            <li><a href="#privacy">개인정보 처리방침</a></li>
+        </ul>
+    </footer>
+</div>
+</body>
+</html>

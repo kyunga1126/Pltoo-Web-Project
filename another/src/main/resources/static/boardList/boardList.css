@@ -1,0 +1,237 @@
+@media screen and (max-width: 2000px) {
+/* 상부 */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 0 20px;
+  height: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+}
+.logo {
+  width: 120px;
+  height: 56px;
+  margin-right: 40px;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  display: flex;
+  text-align: center;
+}
+nav ul li {
+  display: inline-block;
+  position: relative;
+}
+nav ul li a {
+  padding: 10px 15px;
+  color: black;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+nav ul li .dropdown-content {
+  display: none;
+  position:absolute;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+nav ul li:hover .dropdown-content {
+  display: block;
+}
+nav ul li .dropdown-content li a {
+  padding: 10px 15px;
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align:left;
+}
+nav ul li .dropdown-content li a:hover {
+  background-color: #575757;
+}
+
+.right-items {
+  margin-left: auto;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* 이 속성이 search 부분을 오른쪽으로 밀어냅니다. */
+}
+
+/* 버튼 테두리 없애기 */
+.search-button{
+  border: 0;
+  background-color: transparent;
+}
+
+.search input {
+  margin-right: 10px; /* 입력 필드와 버튼 사이의 간격 */
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+  margin-right: 100px; /* 오른쪽에 자동 마진을 적용하여 왼쪽으로 이동 */
+}
+
+.auth a {
+  padding: 5px 10px; /* 기존의 8px 16px에서 패딩 크기를 줄임 */
+  margin-left: 5px; /* 각 링크 사이의 공간을 조정 */
+  font-size: 12px; /* 텍스트 크기를 줄임 */
+  background-color: #b3fcf8;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.globe-icon {
+  padding-left: 20px; /* 왼쪽에 20px 간격 */
+  padding-right: 20px; /* 오른쪽에 20px 간격 */
+}
+
+
+/* 부모 컨테이너를 중앙 정렬 */
+.main-img {
+  width: 100%;
+  margin-top: 64px;  /* 헤더의 높이를 고려 */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 세로 방향 중앙 정렬 추가 */
+  padding: 50px 0; /* 상하 패딩을 설정 */
+}
+
+/* 이미지 컨테이너 */
+.image-container01 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px; /* 이미지 컨테이너에도 둥근 모서리 적용 */
+  overflow: hidden; /* 둥근 모서리가 적용된 이미지를 보기 위해 오버플로우를 숨김 */
+}
+
+/* 이미지 스타일 */
+.rounded-img, .centered-img {
+  border-radius: 50px;  /* 모서리의 둥근 정도를 설정 */
+  max-width: 100%; /* 최대 너비를 설정하여 이미지가 컨테이너를 벗어나지 않도록 함 */
+  height: auto; /* 높이를 자동으로 설정하여 비율을 유지 */
+}
+
+main {
+  background: #f2f4f7; /* 배경색을 #f2f4f7로 설정 */
+  min-height: 700px; /* 최소 높이를 700px로 설정 */
+}
+
+.box-container {
+  width: 951px; /* 너비를 1080px로 설정 */
+  margin: auto; /* 중앙 정렬 */
+  display: grid; /* 그리드 레이아웃 사용 */
+  grid-template-columns: 951px; /* 그리드의 열을 각각 740px와 330px로 설정 */
+  /* grid-template-rows: 70px 70px ; /* 그리드의 행을 순서대로 120px, 310px, 890px, 130px로 설정 */
+  /* gap: 0px; 그리드 구역 간의 간격을 10px로 설정 */
+}
+.title1 {
+  background: yellow; /* 배경색을 노란색으로 설정 */
+  width: 950px; /* 너비를 100%로 설정 */
+  height: 40px; /* 높이를 100%로 설정 */
+  border: 1px solid #dee3eb; /* 테두리를 #dee3eb 색상의 1px 실선으로 설정 */
+  text-align: left; /* 텍스트를 가운데 정렬 */
+  padding: 10px 0px 10px 0px;
+}
+.title_name {
+  font-size: 25px; /* 폰트 크기를 40px로 설정 */
+}
+
+
+/* 중안부 */
+  .boardlist {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0 auto;
+    margin-top: 100px;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .boardlistcontent {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    transition: color 0.3s;
+  }
+
+  /* 최신글,인기글 좌측이동*/
+  .layout {
+    width : 500px;
+    margin : 0 auto;
+    margin-top : 100px;
+  }
+
+  .pagination {
+    display: inline-block;
+  }
+
+
+  /* 하부 */
+  footer {
+    background-color: #666666;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 40px; /* 위에 공백 추가 */
+}
+
+footer ul {
+    display: flex;         /* Flexbox를 사용하여 내부 요소들을 가로로 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    list-style: none;
+    padding: 0;
+    margin: 0; /* 상단, 하단 여백 제거 */
+}
+
+footer ul li {
+    margin-right: 20px; /* 리스트 아이템 사이의 간격 조정 */
+}
+
+footer ul li:last-child {
+    margin-right: 0; /* 마지막 리스트 아이템의 오른쪽 마진 제거 */
+}
+
+footer ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: color 0.3s; /* 링크에 마우스를 올렸을 때 색상 변경 효과 추가 */
+}
+
+footer ul li a:hover {
+    color: #cccccc; /* 링크에 마우스 오버 시 색상 변경 */
+}
+
+
+}

@@ -64,7 +64,7 @@
 <div class="main">
     <div class="sidebar">
         <div class="Profile">
-            <img src="" alt="사용자 이미지" id="profile_img">
+            <img th:src="${profile.profileImage}" alt="사용자 이미지" id="profile_img">
             <div class="profile-info">
                 <h1 th:text="${profile.nickname}">닉네임</h1>
                 <p th:text="${profile.age}">나이</p>
@@ -72,36 +72,34 @@
             <button class="discode" onclick="viewDiscordProfile()">디스코드 프로필 보기</button>
             <!-- 가장 후순위 개발 순서 -->
             <!-- 친구 추가 버튼 -->
-            <form th:action="@{/addFriend/{friendId}(friendId=${profile.id})}" method="post">
-                <div class="button">
-                    <p class="btnText">친구 할래?</p>
-                    <div class="btnTwo">
-                        <p class="btnText2">좋아!</p>
+            <div class="button" id="addFriendButton" th:data-friend-id="${profile.memberId}">
+                <p class="btnText">친구 할래?</p>
+                <div class="btnTwo">
+                    <p class="btnText2">좋아!</p>
                 </div>
             </div>
-            </form>
         </div>
     </div>
-        <h3>나의 친구 목록</h3>
-        <div class="friend_list">
-            <ul>
-                <li th:each="friend : ${friends}" th:text="${friend.friend.nickname}">친구 닉네임</li>
-            </ul>
-        </div>
+    <h3>나의 친구 목록</h3>
+    <div class="friend_list">
+        <ul id="friendList">
+            <li th:each="friend : ${friends}" th:text="${friend.nickname}">친구 닉네임</li>
+        </ul>
+    </div>
     </div>
     <div class="main-content">
         <h2>자기소개</h2>
         <div class="profile">
             <!-- 다른 사용자의 자기소개 정보 표시 -->
-            <p th:text="${profile.description}"></p>
+            <p th:text="${profile.profile}"></p>
         </div>
         <h2>하는 게임 리스트</h2>
         <div class="games">
             <div class="gamePage">
                 <!-- 다른 사용자의 게임 목록 표시 -->
-                <ul>
-                    <li th:each="game : ${games}" th:text="${game.name}">게임 이름</li>
-                </ul>
+                <div id="gameList" th:each="game : ${games}">
+                    <p th:text="${game}"></p>
+                </div>
             </div>
         </div>
         <h2>등록한 티어</h2> <!-- 가장 후순위 개발 순서 -->

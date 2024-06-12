@@ -37,4 +37,10 @@ public class LoginService {
             return null;
         }
     }
+
+    public MemberEntity findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("No member found with email: " + email));
+    }
+
 }

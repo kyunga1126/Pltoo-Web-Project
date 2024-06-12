@@ -2,41 +2,55 @@ package com.pltoo.membership.Service;
 
 import com.pltoo.membership.entity.FriendEntity;
 import com.pltoo.membership.entity.MemberEntity;
-import com.pltoo.membership.entity.MyPageEntity;
 import com.pltoo.membership.repository.FriendRepository;
 import com.pltoo.membership.repository.MemberRepository;
-import com.pltoo.membership.repository.MyPageRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FriendService {
 
-    private final FriendRepository friendRepository;
-    private final MyPageRepository mypageRepository;
-
     @Autowired
-    public FriendService(FriendRepository friendRepository, MyPageRepository mypageRepository) {
-        this.friendRepository = friendRepository;
-        this.mypageRepository = mypageRepository;
-    }
-
-    // 사용자의 친구목록을 가져오는 메서드
-    public List<FriendEntity> getFriends(Long userId) {
-        return friendRepository.findByMemberId(userId);
-    }
-
+    private MemberRepository memberRepository;
+    @Autowired
+    private FriendRepository friendRepository;
+    @Transactional
+    //친구 추가 요청 처리, 새로운 친구관계 DB 저장
     public void addFriend(Long userId, Long friendId) {
-        MyPageEntity user = mypageRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        MyPageEntity friend = mypageRepository.findById(friendId).orElseThrow(() -> new RuntimeException("Friend not found"));
+        // 사용자와 친구 엔티티 조회
+        MemberEntity user = memberRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+        MemberEntity friend = memberRepository.findById(friendId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid friend ID"));
 
-        FriendEntity friendship = new FriendEntity();
-        friendship.setMember(user);
-        friendship.setFriend(friend);
+        FriendEntity friendEntity = new FriendEntity();
+        friendEntity.setUser(user);
+        friendEntity.setFriend(friend);
 
-        friendRepository.save(friendship);
+        //DB에 저장
+        friendRepository.save(friendEntity);
+    }
+
+    // 사용자의 친구 목록을 조회
+    public List<FriendEntity> getFriends(Long userId) {
+        // 사용자의 엔티티 조회
+        MemberEntity user = memberRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+        //친구 목록을 조회
+        return friendRepository.findByUser(user);
+    }
+
+    // 해당하는 사용자의 친구목록에서 친구들의 닉네임을 조회
+    public List<String> getFriendNicknames(Long userId) {
+        List<FriendEntity> friends = getFriends(userId);
+
+        // stream을 사용해서 친구의 닉네임을 추출한 후 리스트로 변환
+        return friends.stream()
+                .map(friend -> friend.getFriend().getNickname())
+                .collect(Collectors.toList());
     }
 }

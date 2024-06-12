@@ -62,10 +62,6 @@ public class MemberEntity {
     @Column(name = "nickname", length = 8)
     private String nickname;
 
-    // Mypage 구현되면 삭제 후 MyPage로 이동 예정.
-    @Column(name = "profile_image")
-    private String profileImage; // 프로필 이미지 경로
-
     // MyPage 구현되면 삭제 후 MyPage로 이동 예정.
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<GameEntity> games;
@@ -83,10 +79,4 @@ public class MemberEntity {
 
         return memberEntity;
     }
-
-    // 프로필 이미지 경로를 반환하는 메서드
-    public String getProfileImage() {
-        return this.profileImage;
-    }
-
 }

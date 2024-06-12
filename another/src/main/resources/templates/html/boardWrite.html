@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write a Post</title>
+  <scrip th:src="@{/boardWrite/boardWrite.js}"></scrip>
+  <link rel="stylesheet" th:href="@{/boardWrite/boardWrite.css}">
+</head>
+<body>
+<!-- 상단 -->
+<div class="header">
+  <a href="index.html">
+      <img src="/img/logo.png" alt="pltoo 로고" class="logo">
+  </a>
+  <nav>
+      <ul>
+          <li class="dropdown">
+              <a href="#qa">게임</a>
+              <ul class="dropdown-content">
+                  <li><a href="#qa1">친구목록</a></li>
+                  <li><a href="#qa2">채팅</a></li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a href="#booking">게시판</a>
+              <ul class="dropdown-content">
+                  <li><a href="#booking1">자유게시판</a></li>
+                  <li><a href="#booking2">2</a></li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a href="#booking">고객센터</a>
+              <ul class="dropdown-content">
+                  <li><a href="#booking1">문의사항</a></li>
+                  <li><a href="#booking2">자주묻는 질문</a></li>
+                  <li><a href="#booking3">신고</a></li>
+                  <li><a href="#booking3">챗봇</a></li>
+              </ul>
+          </li>
+      </ul>
+  </nav>
+  <div class="search">
+      <input type="text" id="searchInput" placeholder="궁금한 내용을 검색해보세요" style="display: none;">
+      <button class="search-button" onclick="toggleSearch()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+  </div>
+  <div class="globe-icon">
+      <i class="fa-solid fa-globe"></i>
+  </div>
+  <div class="auth">
+      <a href="./login/loginForm.html">로그인</a>
+      <a href="signup.html">회원가입</a>
+  </div>
+</div>
+
+<!-- 중앙부 -->
+<div class="container">
+  <h1>글쓰기</h1>
+  <form action="/board/writepro" method="post" id="postForm" enctype="multipart/form-data">
+    <input type="text" id="id" name="id" placeholder="아이디"><br><br>
+    <input type="text" id="nickname" name="nickname" placeholder="닉네임"><br><br>
+    <input type="text" id="boardTitle" name="boardTitle" placeholder="제목"><br><br>
+    <textarea id="boardContent" name="boardContent" rows="4" cols="50" placeholder="내용을 입력해주세요"></textarea><br><br>
+    <input type="file" id="file" name="file"><br><br>
+    <button type="submit">등록</button>
+  </form>
+</div>
+
+<!-- 하단 -->
+<div class="foot_container">
+  <footer>
+      <ul>
+          <li><a href="#guideline">가이드라인</a></li>
+          <li><a href="#terms">이용약관</a></li>
+          <li><a href="#privacy">개인정보 처리방침</a></li>
+      </ul>
+  </footer>
+</div>
+</body>
+</html>

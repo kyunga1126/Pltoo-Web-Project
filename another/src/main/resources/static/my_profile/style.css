@@ -334,6 +334,74 @@
         color: white;
     }
 
+    /* 라디오 버튼 커스텀 스타일 */
+    .custom-radio {
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        user-select: none;
+        display: inline-flex; /* 가로로 배열되도록 인라인 플렉스 사용 */
+        align-items: center; /* 세로 중심 정렬 */
+    }
+
+    /* 숨김 */
+    .custom-radio input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    /* 체크마크를 만들기 위한 기본 원 */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0; /* 라디오 버튼을 왼쪽에 위치시킴 */
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        z-index: 0;
+    }
+
+
+    /* 호버 효과 */
+    .custom-radio:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* 라디오 버튼이 체크될 때의 스타일 */
+    .custom-radio input:checked ~ .checkmark {
+        background-color: #d5b7ed;
+    }
+
+    /* 체크 표시 스타일 */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* 체크 표시를 표시하도록 스타일 변경 */
+    .custom-radio input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* 체크마크 아이콘 스타일 */
+    .custom-radio .checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+
+
+
+
     /* 오른쪽 프로필칸 */
     .main-content {
         width: 800px;
@@ -462,6 +530,20 @@
         border: none;
         cursor: pointer;
         float: right;
+    }
+
+    .button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #d5b7ed;
+        color: white;
+        border: none;
+        cursor: pointer;
+        float: right;
+    }
+
+    .button:hover {
+        background-color: #c89bec;
     }
 
     button:hover {

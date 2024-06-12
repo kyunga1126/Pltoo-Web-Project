@@ -4,21 +4,21 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
-@Table(name = "myprofile")
-@Entity
+@Table(name = "friends")
 public class FriendEntity {
 
-        @Id //MemberEntity의 id 가져오기
-        @Column(name = "email", length = 50, unique = true) // 저장이 아닌 업데이트update가 되게끔.
-        private String memberEmail;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long num;
 
-        @ManyToOne
-        @JoinColumn(name = "id")
-        private MyPageEntity member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private MemberEntity user;
 
-        @ManyToOne
-        @JoinColumn(name = "friend_id")
-        private MyPageEntity friend;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "friend_id", nullable = false)
+    private MemberEntity friend;
 }

@@ -3,22 +3,28 @@ package com.pltoo.membership.controller;
 
 import com.pltoo.membership.Service.GameService;
 import com.pltoo.membership.Service.MemberService;
+import com.pltoo.membership.Service.MyPageService;
 import com.pltoo.membership.dto.GameDTO;
 import com.pltoo.membership.dto.MemberDTO;
+import com.pltoo.membership.dto.MyPageDTO;
+import com.pltoo.membership.entity.MemberEntity;
+import com.pltoo.membership.entity.MyPageEntity;
+import com.pltoo.membership.repository.MemberRepository;
+import com.pltoo.membership.repository.MyPageRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.internal.Errors;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Slf4j
@@ -29,6 +35,8 @@ public class MemberController {
     //자동적으로 service class에 대한 객체를 주입을 받는다.
     private final MemberService memberService;
     private final GameService gameService;
+    private final MyPageService myPageService;
+    private final MemberRepository memberRepository;
 
     //회원가입 페이지 출력 요청
     @GetMapping("join/join")
@@ -70,9 +78,8 @@ public class MemberController {
 
     @PostMapping("join/join")
     // 스프링에서는 이렇게 더 간단하게 만들 수 있다.
-    public String save(@ModelAttribute @Validated MemberDTO memberDTO, Model model, Errors errors) {
-        System.out.println("MemberController.save");
-        log.info("memerDTO={}",memberDTO);
+    public String save(@ModelAttribute @Validated MemberDTO memberDTO, Model model, MyPageDTO myPageDTO) {
+        log.info("memerDTO={}", memberDTO);
         // Concatenate year, month, and day to form the birthDateFormatted string
         String birthDate = memberDTO.getMemberYear() + memberDTO.getMemberMonth() + memberDTO.getMemberDay();
         memberDTO.setBirthDateFormatted(birthDate); // Correctly use the setter method
@@ -88,7 +95,7 @@ public class MemberController {
     }
 
     @GetMapping("html/nickname")
-    public String nicknameSave(@ModelAttribute("memberEmail") String memberEmail,  Model model) {
+    public String nicknameSave(@ModelAttribute("memberEmail") String memberEmail, Model model) {
         //model.addAttribute("memberEmail", memberEmail);
         return "html/nickname";
     }
@@ -120,20 +127,26 @@ public class MemberController {
     }
 
     @GetMapping("html/select_game")
-    public String selectGame(@RequestParam("memberEmail") String memberEmail, @RequestParam("memberNum") Long memberNum, Model model) {
+    public String selectGame(@RequestParam("memberEmail") String memberEmail,
+                             @RequestParam("memberNum") Long memberNum,
+                             Model model) {
         model.addAttribute("memberEmail", memberEmail);
         System.out.println("Received email: " + memberEmail);
         model.addAttribute("memberNum", memberNum);
         System.out.println("Received num: " + memberNum);
-        return "/html/select_game";
+
+
+        return "html/select_game"; // 정상적인 경우에만 뷰를 반환
     }
 
     @PostMapping("/html/select_game")
     public String saveGame(@RequestParam("memberEmail") String memberEmail,
                            @RequestParam("memberNum") Long memberNum,
                            @RequestParam Map<String, String> allParams,
-                           Model model) {
-        System.out.println("selectGame method called"); // 메서드 진입 확인 로그
+                           Model model,
+                           HttpSession session) {
+        // 메서드 진입 확인 로그
+        System.out.println("selectGame method called");
         model.addAttribute("memberEmail", memberEmail);
         System.out.println("Email: " + memberEmail);
         model.addAttribute("memberNum", memberNum);
@@ -144,28 +157,37 @@ public class MemberController {
             System.out.println("No member found with email: " + memberEmail);
             return "errorPage"; // 적절한 에러 페이지로 리다이렉트
         }
-        // 선택된 게임들을 처리
-        allParams.forEach((key, value) -> {
-            if (key.startsWith("B") && "on".equals(value)) {
-                GameDTO gameDTO = new GameDTO();
-                gameDTO.setMemberGame(key); // 게임 체크박스의 name 속성을 사용
-                gameDTO.setMemberNum(memberNum);
-                gameService.createGame(gameDTO);
-            }
-        });
-        // MyProfileController의 login_main 메서드로 포워딩
-       // return "forward:html/login_main"; // 성공적으로 저장된 후 리다이렉트할 페이지
-        return "html/joinLogin";
-    }
 
-    @GetMapping("/current")
-    public ResponseEntity<?> getCurrentUser(HttpSession session) {
-        Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+        // MemberEntity 가져오기
+        Optional<MemberEntity> optionalMember = memberRepository.findById(memberNum);
+        if (optionalMember.isPresent()) {
+            MemberEntity foundMember = optionalMember.get();
+
+            // 세션에 로그인 이메일 저장
+            session.setAttribute("loginEmail", memberEmail);
+            log.info("Game Selection for Email: {}", memberEmail);
+
+            // MyPageEntity 처리 로직 추가
+            MyPageEntity myPageEntity = myPageService.getOrCreateMyPageEntity(foundMember);
+            log.info("MyPageEntity has been saved: {}", myPageEntity);
+
+            // 선택된 게임들을 처리
+            allParams.forEach((key, value) -> {
+                if (key.startsWith("B") && "on".equals(value)) {
+                    GameDTO gameDTO = new GameDTO();
+                    gameDTO.setMemberGame(key); // 게임 체크박스의 name 속성을 사용
+                    gameDTO.setMemberNum(memberNum);
+                    gameService.createGame(gameDTO);
+                    log.info("Game saved for member {}: {}", memberNum, key);
+                }
+            });
+
+            // 성공적으로 저장된 후 리다이렉트할 페이지
+            return "html/login_main";
+        } else {
+            // memberNum이 올바르지 않은 경우 에러 페이지로 리다이렉트
+            System.out.println("No member found with memberNum: " + memberNum);
+            return "errorPage";
         }
-        return ResponseEntity.ok(userId);
     }
-
-
 }

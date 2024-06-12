@@ -23,9 +23,9 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#booking">게시판</a>
+                <a href="/board/list">게시판</a>
                 <ul class="dropdown-content">
-                    <li><a href="#booking1">자유게시판</a></li>
+                    <li><a href="/board/list">자유게시판</a></li>
                     <li><a href="#booking2">2</a></li>
                 </ul>
             </li>
@@ -54,13 +54,10 @@
             <li><a href="#option3">Option 3</a></li>
         </ul>
     </div>
-    <div class="auth">
-        <a href="/my_profile/my_profile.html">
-            <img id="headerProfileImage" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="프로필 이미지" class="header-profile-image">
-        </a>
-    </div>
+    <a href="/member/myPage">
+        <img id="headerProfileImage" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuLUrM%2FbtsHEqXxedM%2Fr9yMgi98uXY17KOhGkORwk%2Fimg.png" alt="프로필 이미지" class="header-profile-image">
+    </a>
 </div>
-    session 값 확인: <p th:text="${session.loginEmail}"></p>
 <div class="main-img">
     <a href="랭킹 링크">
         <div class="image-container01">
